@@ -6,7 +6,7 @@ type MyResult<T> = Result<T, Box<dyn Error>>;
 
 #[derive(Debug)]
 pub struct Config {
-    files: Vec<&str>,
+    files: Vec<String>,
     number_lines: bool,
     number_nonblank_lines: bool,
 }
@@ -27,20 +27,21 @@ pub fn get_args() -> MyResult<Config> {
         .arg(
             Arg::new("file")
                 .value_name("FILE")
-                .help("Input file(s)")
-                .num_args(1..),
+                .help("Input file(s) [default: -]")
+                .num_args(1..)
+                .default_values(["-"]),
         )
         .arg(
-            Arg::new("number_lines")
+            Arg::new("number")
                 .short('n')
-                .help("Number the lines (excluding the non-blank lines).")
+                .help("Number lines")
                 .num_args(0)
                 .action(ArgAction::SetTrue),
         )
         .arg(
-            Arg::new("number_nonblank_lines")
+            Arg::new("number_nonblank")
                 .short('b')
-                .help("Number the lines (including the non-blank lines).")
+                .help("Number nonblank lines")
                 .num_args(0)
                 .action(ArgAction::SetTrue),
         )
@@ -49,10 +50,16 @@ pub fn get_args() -> MyResult<Config> {
     Ok(Config {
         files: matches
             .get_many::<String>("file")
-            .expect("Must be a valid file path")
-            .map(|s| s.as_str())
+            .expect("Must contains valid filepaths")
+            .cloned()
             .collect(),
-        number_lines: matches.get_flag("number_lines"),
-        number_nonblank_lines: matches.get_flag("number_nonblank_lines"),
+        number_lines: matches.get_flag("number"),
+        number_nonblank_lines: matches.get_flag("number_nonblank"),
     })
+}
+
+pub fn run(config: Config) -> MyResult<()> {
+    dbg!(config);
+
+    Ok(())
 }
