@@ -14,4 +14,3 @@ clap = { version = "4", features = ["cargo", "help"] }
 assert_cmd = "2.0.12"
 predicates = "3.0.3"
 rand = "0.8.5"
-rstest = "0.18.1"
