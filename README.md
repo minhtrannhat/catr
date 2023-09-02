@@ -10,10 +10,10 @@ Arguments:
   [FILE]...  Input file(s) [default: -] [default: -]
 
 Options:
-  -n             Number lines
-  -b             Number nonblank lines
-  -h, --help     Print help
-  -V, --version  Print version
+  -n, --number           Number lines
+  -b, --number-nonblank  Number nonblank lines
+  -h, --help             Print help
+  -V, --version          Print version
 ```
 
 ## Build
