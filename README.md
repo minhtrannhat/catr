@@ -20,4 +20,4 @@ Options:
 `cargo build`
 
 ## Test
-`cargo test`
+`./mk-outs.sh && cargo test`
